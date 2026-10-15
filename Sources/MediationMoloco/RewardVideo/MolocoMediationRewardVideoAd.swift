@@ -3,7 +3,7 @@ import APSSPSDK
 import MolocoSDK
 
 final class MolocoMediationRewardVideoAd: NSObject {
-    var delegate: APSSPRewardVideoAdapterDelegate?
+    weak var delegate: APSSPRewardVideoAdapterDelegate?
     private var rewardedAd: (any MolocoRewardedInterstitial)?
     private let adUnitId: String
     private var biddingData: String?
@@ -50,7 +50,24 @@ extension MolocoMediationRewardVideoAd: MolocoRewardedDelegate {
     func failToShow(ad: any MolocoAd, with error: Error?) { delegate?.rewardVideoShowFail(message: error?.localizedDescription ?? "Moloco RV show fail") }
     func didHide(ad: any MolocoAd) { delegate?.rewardVideoClosed(message: "Moloco RV closed") }
     func didClick(on ad: any MolocoAd) { delegate?.rewardVideoClicked(message: "Moloco RV clicked") }
-    func userRewarded(ad: any MolocoAd) { }
-    func rewardedVideoStarted(ad: any MolocoAd) { }
-    func rewardedVideoCompleted(ad: any MolocoAd) {delegate?.rewardVideoCompleted() }
+    /// 리워드 지급 시점. **완료 통보는 이 콜백을 기준으로 한다.**
+    ///
+    /// Moloco 는 `rewardedVideoCompleted` 를 호출하지 않는 경우가 있어
+    /// 그쪽에 걸어두면 완료 트래킹(`/tracker/video/reward/cs` isCompleted=true)과
+    /// 매체 리워드 지급 콜백이 모두 누락된다.
+    /// AOS(`MolocoAdapter.onUserRewarded`)도 동일하게 이 콜백에서 완료를 통보한다.
+    func userRewarded(ad: any MolocoAd) {
+        APLogger.debug("Moloco RewardVideo userRewarded")
+        delegate?.rewardVideoCompleted()
+    }
+
+    func rewardedVideoStarted(ad: any MolocoAd) {
+        APLogger.debug("Moloco RewardVideo started")
+    }
+
+    /// 영상 재생 완료. 리워드 지급과는 별개이며 호출되지 않을 수 있다.
+    /// 완료 통보는 `userRewarded` 에서 한다. (AOS 와 동일)
+    func rewardedVideoCompleted(ad: any MolocoAd) {
+        APLogger.debug("Moloco RewardVideo videoCompleted")
+    }
 }

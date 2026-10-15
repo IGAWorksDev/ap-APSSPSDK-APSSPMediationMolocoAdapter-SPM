@@ -3,9 +3,13 @@ import APSSPSDK
 import MolocoSDK
 
 public final class MolocoRewardVideoAdapter: APSSPRewardVideoAdapterInappBiddingProtocol {
-    public var delegate: APSSPRewardVideoAdapterDelegate?
-    public var rootViewController: UIViewController?
+    public weak var delegate: APSSPRewardVideoAdapterDelegate?
+    public weak var rootViewController: UIViewController?
     private var mediationAd: MolocoMediationRewardVideoAd?
+
+    deinit {
+        APLogger.debug("MolocoRewardVideoAdapter deinit")
+    }
 
     public init(placementDic: [String: String], rootViewController: UIViewController?, info: [String: Any?]) {
         let adUnitId = placementDic[APSSPPlacementKey.molocoAdUnitId.rawValue] ?? ""

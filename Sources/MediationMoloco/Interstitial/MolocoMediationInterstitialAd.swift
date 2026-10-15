@@ -3,7 +3,7 @@ import APSSPSDK
 import MolocoSDK
 
 final class MolocoMediationInterstitialAd: NSObject {
-    var delegate: APSSPInterstitialAdapterDelegate?
+    weak var delegate: APSSPInterstitialAdapterDelegate?
     private var interstitialAd: (any MolocoInterstitial)?
     private let adUnitId: String
     private var biddingData: String?

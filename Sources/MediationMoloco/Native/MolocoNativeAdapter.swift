@@ -5,7 +5,7 @@ import MolocoSDK
 public final class MolocoNativeAdapter: APSSPNativeAdapterInappBiddingProtocol {
     public var render: AnyObject?
     weak public var delegate: APSSPNativeViewAdapterDelegate?
-    public var rootViewController: UIViewController?
+    public weak var rootViewController: UIViewController?
     private var mediationAd: MolocoMediationNativeAdView?
 
     public init(placementDic: [String: String], rootViewController: UIViewController?, render: AnyObject, info: [String: Any?]) {

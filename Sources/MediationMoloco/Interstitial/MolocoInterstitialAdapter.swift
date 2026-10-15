@@ -3,9 +3,13 @@ import APSSPSDK
 import MolocoSDK
 
 public final class MolocoInterstitialAdapter: APSSPInterstitialAdapterInappBiddingProtocol {
-    public var rootViewController: UIViewController?
-    public var delegate: APSSPInterstitialAdapterDelegate?
+    public weak var rootViewController: UIViewController?
+    public weak var delegate: APSSPInterstitialAdapterDelegate?
     private var mediationAd: MolocoMediationInterstitialAd?
+
+    deinit {
+        APLogger.debug("MolocoInterstitialAdapter deinit")
+    }
 
     public init(placementDic: [String: String], rootViewController: UIViewController?, info: [String: Any?]) {
         let adUnitId = placementDic[APSSPPlacementKey.molocoAdUnitId.rawValue] ?? ""

@@ -3,12 +3,16 @@ import APSSPSDK
 import MolocoSDK
 
 public final class MolocoVideoMixAdapter: APSSPVideoMixAdAdapterInappBiddingProtocol {
-    public var rootViewController: UIViewController?
-    public var videoMixDelegate: APSSPVideoMixAdAdapterDelegate?
+    public weak var rootViewController: UIViewController?
+    public weak var videoMixDelegate: APSSPVideoMixAdAdapterDelegate?
     public var videoMixAdType: APSSPVideoMixAdType = .RewardVideo
     private var placementDic: [String: String] = [:]
     private var interstitialAdapter: MolocoInterstitialAdapter?
     private var rewardVideoAdapter: MolocoRewardVideoAdapter?
+
+    deinit {
+        APLogger.debug("MolocoVideoMixAdapter deinit")
+    }
 
     public init(placementDic: [String: String], rootViewController: UIViewController?, info: [String: Any?]) {
         self.placementDic = placementDic; self.rootViewController = rootViewController
