@@ -8,7 +8,7 @@ public final class MolocoAdapterFactory: NSObject, APSSPAdapterFactory {
     public static var networkID: Int { 42 }
 
     public static var sdkVersion: String? { MolocoInitializationAdapter().sdkVersion }
-    public static var adapterVersion: String? { "4.7.0.0" }
+    public static var adapterVersion: String? { "4.8.0.0" }
 
     // MARK: - Standard
 
