@@ -12,7 +12,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/IGAWorksDev/ap-APSSPSDK-SPM.git", from: "3.4.0"),
-        .package(url: "https://github.com/moloco/moloco-sdk-ios-spm.git", exact: "4.4.1"),
+        .package(url: "https://github.com/moloco/moloco-sdk-ios-spm.git", exact: "4.5.0"),
     ],
     targets: [
         .target(name: "APSSPMediationMoloco",
